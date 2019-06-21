@@ -1,5 +1,6 @@
 const functions = require('firebase-functions')
 const admin = require('firebase-admin')
+const vision = require('@google-cloud/vision')
 
 admin.initializeApp()
 
@@ -25,3 +26,48 @@ exports.deleteUserData = functions.auth.user().onDelete(user => {
     .delete()
   return 0
 })
+
+exports.createImageData = functions.storage
+  .object()
+  .onFinalize(async object => {
+    console.log(object)
+    console.log(object.bucket)
+    console.log(object.name)
+    console.log(object.contentType)
+
+    if (!object.contentType.startsWith('image/')) {
+      console.error('This is not an image.')
+      return null
+    }
+    const client = new vision.ImageAnnotatorClient()
+    const [result] = await client.labelDetection(
+      `gs://${object.bucket}/${object.name}`
+    )
+    console.log(result.labelAnnotations)
+    const cat = result.labelAnnotations.filter(
+      annotation => annotation.description === 'Cat'
+    )
+    const file = admin
+      .storage()
+      .bucket(object.bucket)
+      .file(object.name)
+    if (cat.length > 0) {
+      const [downloadUrl] = await file.getSignedUrl({
+        action: 'read',
+        expires: '01-01-2050'
+      })
+      const data = {
+        url: downloadUrl,
+        createdAt: admin.firestore.FieldValue.serverTimestamp()
+      }
+      admin
+        .firestore()
+        .collection('images')
+        .add(data)
+    } else {
+      await file.delete()
+      console.log('deleted')
+    }
+
+    return null
+  })
