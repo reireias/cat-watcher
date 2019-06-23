@@ -1,3 +1,4 @@
+/* eslint no-console: 0 */
 const functions = require('firebase-functions')
 const admin = require('firebase-admin')
 const vision = require('@google-cloud/vision')
@@ -30,11 +31,6 @@ exports.deleteUserData = functions.auth.user().onDelete(user => {
 exports.createImageData = functions.storage
   .object()
   .onFinalize(async object => {
-    console.log(object)
-    console.log(object.bucket)
-    console.log(object.name)
-    console.log(object.contentType)
-
     if (!object.contentType.startsWith('image/')) {
       console.error('This is not an image.')
       return null
