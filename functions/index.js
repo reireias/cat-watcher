@@ -3,8 +3,11 @@ const functions = require('firebase-functions')
 const admin = require('firebase-admin')
 const vision = require('@google-cloud/vision')
 
+const NOTIFICATION_TITLE = 'cat-watcher'
+
 admin.initializeApp()
 
+// auth
 exports.createUserData = functions.auth.user().onCreate(user => {
   const data = {
     name: user.email.split('@')[0],
@@ -28,14 +31,33 @@ exports.deleteUserData = functions.auth.user().onDelete(user => {
   return 0
 })
 
+// firestore
 exports.subscribeTopic = functions.firestore
-  .document('images')
-  .onUpdate((change, context) => {
-    console.log('onUpdate')
-    console.log(change)
-    console.log(context)
+  .document('/users/{userId}')
+  .onUpdate(async (change, context) => {
+    const token = change.after.data().messagingToken
+    console.log(token)
+    const res = await admin.messaging().subscribeToTopic(token, '/topics/cat')
+    console.log(res)
+    return null
   })
 
+exports.sendMessage = functions.firestore
+  .document('/images/{imageId}')
+  .onCreate(async (snap, context) => {
+    const message = {
+      notification: {
+        title: NOTIFICATION_TITLE,
+        body: '新しい画像が追加されました',
+        icon: 'https://cat-watcher.firebaseapp.com/android-chrome-512x512.png',
+        click_action: 'https://cat-watcher.firebaseapp.com/'
+      }
+    }
+    await admin.messaging().sendToTopic('/topics/cat', message)
+    return null
+  })
+
+// storage
 exports.createImageData = functions.storage
   .object()
   .onFinalize(async object => {

@@ -1,4 +1,4 @@
-import { vuexfireMutations } from 'vuexfire'
+import { vuexfireMutations, firestoreAction } from 'vuexfire'
 import firebase from '@/plugins/firebase'
 
 const db = firebase.firestore()
@@ -6,7 +6,8 @@ const db = firebase.firestore()
 export const state = () => {
   return {
     loading: true,
-    user: null
+    user: null,
+    images: []
   }
 }
 
@@ -19,6 +20,23 @@ export const mutations = {
 }
 
 export const actions = {
+  bindImages: firestoreAction(({ bindFirestoreRef }, payload) => {
+    return bindFirestoreRef(
+      'images',
+      db
+        .collection('users')
+        .doc(payload.uid)
+        .collection('images')
+        .orderBy('createdAt', 'desc')
+    )
+  }),
+  deleteImage(_, payload) {
+    db.collection('users')
+      .doc(payload.uid)
+      .collection('images')
+      .doc(payload.id)
+      .delete()
+  },
   setUser({ commit }, payload) {
     const user = {
       uid: payload.uid,
@@ -37,6 +55,9 @@ export const actions = {
 }
 
 export const getters = {
+  images(state) {
+    return state.images
+  },
   authenticated(state) {
     return state.user !== null
   },
