@@ -23,7 +23,7 @@
             {{ formatDate(image.createdAt) }}
             <v-spacer />
             <v-btn icon @click="onDeleteImage(image)">
-              <v-icon>cancel</v-icon>
+              <v-icon>close</v-icon>
             </v-btn>
           </v-card-actions>
         </v-card>

@@ -1,8 +1,12 @@
 <template>
   <v-layout column justify-center align-center>
     <v-flex xs12>
-      <h1>Cat Watcher</h1>
+      <div class="signin-title primary--text">ねこかん</div>
     </v-flex>
+    <v-flex xs12>
+      <div class="signin-body-text">猫監視システム</div>
+    </v-flex>
+    <br />
     <v-flex xs12>
       <div id="firebase-auth-container"></div>
     </v-flex>
@@ -26,3 +30,20 @@ export default {
   }
 }
 </script>
+
+<style>
+.signin-title {
+  font-size: 256px;
+}
+.signin-body-text {
+  font-size: 36px;
+}
+@media (max-width: 600px) {
+  .signin-title {
+    font-size: 56px;
+  }
+  .signin-body-text {
+    font-size: 24px;
+  }
+}
+</style>
