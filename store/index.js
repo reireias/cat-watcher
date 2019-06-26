@@ -20,20 +20,14 @@ export const mutations = {
 }
 
 export const actions = {
-  bindImages: firestoreAction(({ bindFirestoreRef }, payload) => {
+  bindImages: firestoreAction(({ bindFirestoreRef }, _) => {
     return bindFirestoreRef(
       'images',
-      db
-        .collection('users')
-        .doc(payload.uid)
-        .collection('images')
-        .orderBy('createdAt', 'desc')
+      db.collection('images').orderBy('createdAt', 'desc')
     )
   }),
   deleteImage(_, payload) {
-    db.collection('users')
-      .doc(payload.uid)
-      .collection('images')
+    db.collection('images')
       .doc(payload.id)
       .delete()
   },

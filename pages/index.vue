@@ -4,13 +4,18 @@
       <div class="text-xs-center">TODO</div>
       <v-btn @click="subscribe">subscribe</v-btn>
     </v-flex>
+    <image-list></image-list>
   </v-layout>
 </template>
 
 <script>
 import firebase from '@/plugins/firebase'
 import { mapActions, mapGetters } from 'vuex'
+import ImageList from '@/components/ImageList'
 export default {
+  components: {
+    ImageList
+  },
   computed: {
     ...mapGetters(['user'])
   },
