@@ -3,8 +3,7 @@ import colors from 'vuetify/es5/util/colors'
 export default {
   mode: 'spa',
   head: {
-    titleTemplate: '%s - ' + process.env.npm_package_name,
-    title: process.env.npm_package_name || '',
+    title: 'ねこかん',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -48,6 +47,11 @@ export default {
     middleware: ['auth']
   },
   icon: {},
+  manifest: {
+    name: 'ねこかん',
+    short_name: 'ねこかん',
+    lang: 'ja'
+  },
   axios: {},
   vuetify: {
     theme: {

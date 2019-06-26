@@ -96,7 +96,7 @@ exports.createImageData = functions.storage
         url: downloadUrl,
         createdAt: admin.firestore.FieldValue.serverTimestamp()
       }
-      ref.set(data)
+      await ref.set(data)
     } else {
       await file.delete()
       console.log('deleted')
