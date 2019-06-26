@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <toolbar></toolbar>
-    <v-content>
+    <v-content class="bg-body">
       <v-container>
         <nuxt />
       </v-container>
@@ -17,3 +17,10 @@ export default {
   }
 }
 </script>
+
+<style>
+.bg-body {
+  background-image: url('/bg.png');
+  background-repeat: repeat;
+}
+</style>
