@@ -9,6 +9,7 @@
             max-width="275px"
             max-height="200px"
             contain
+            @click="onImageClick(image)"
           >
             <template v-slot:placeholder>
               <v-layout fill-height align-center justify-center ma-0>
@@ -29,6 +30,11 @@
         </v-card>
       </v-flex>
     </v-layout>
+    <v-dialog v-model="dialog" max-width="50%">
+      <v-card v-if="currentImage">
+        <v-img :src="currentImage.url"></v-img>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -36,6 +42,12 @@
 import firebase from '@/plugins/firebase'
 import { mapGetters, mapActions } from 'vuex'
 export default {
+  data() {
+    return {
+      dialog: false,
+      currentImage: null
+    }
+  },
   computed: {
     ...mapGetters(['images'])
   },
@@ -61,6 +73,10 @@ export default {
           id: image.id
         })
       })
+    },
+    onImageClick(image) {
+      this.dialog = true
+      this.currentImage = image
     },
     ...mapActions(['bindImages', 'deleteImage'])
   }
