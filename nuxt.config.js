@@ -35,7 +35,7 @@ export default {
       }
     ]
   },
-  loading: { color: '#fff' },
+  loading: { color: colors.pink.accent4 },
   css: ['firebaseui/dist/firebaseui.css'],
   plugins: [],
   modules: [
@@ -51,7 +51,7 @@ export default {
   axios: {},
   vuetify: {
     theme: {
-      primary: colors.blue.darken2,
+      primary: colors.pink.accent4,
       accent: colors.grey.darken3,
       secondary: colors.amber.darken3,
       info: colors.teal.lighten1,

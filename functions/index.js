@@ -65,6 +65,10 @@ exports.createImageData = functions.storage
       console.error('This is not an image.')
       return null
     }
+    if (object.metageneration !== '1') {
+      console.info('updated.')
+      return null
+    }
     const client = new vision.ImageAnnotatorClient()
     const [result] = await client.labelDetection(
       `gs://${object.bucket}/${object.name}`
@@ -82,14 +86,17 @@ exports.createImageData = functions.storage
         action: 'read',
         expires: '01-01-2050'
       })
+      const ref = admin
+        .firestore()
+        .collection('images')
+        .doc()
       const data = {
+        id: ref.id,
+        name: object.name,
         url: downloadUrl,
         createdAt: admin.firestore.FieldValue.serverTimestamp()
       }
-      admin
-        .firestore()
-        .collection('images')
-        .add(data)
+      ref.set(data)
     } else {
       await file.delete()
       console.log('deleted')

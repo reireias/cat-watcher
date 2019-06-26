@@ -1,9 +1,15 @@
 <template>
-  <v-container grid-list-xs fluid>
+  <v-container grid-list-md fluid>
     <v-layout row wrap>
       <v-flex v-for="image in images" :key="image.id" xs6 sm4 md3>
-        <v-card class="image-card">
-          <v-img :src="image.url" width="200px" height="200px" contain>
+        <v-card class="image-card" hover>
+          <v-img
+            class="image-card-image"
+            :src="image.url"
+            max-width="275px"
+            max-height="200px"
+            contain
+          >
             <template v-slot:placeholder>
               <v-layout fill-height align-center justify-center ma-0>
                 <v-progress-circular
@@ -47,9 +53,9 @@ export default {
       const sec = `0${date.getSeconds()}`.slice(-2)
       return `${year}/${month}/${day} ${hour}:${min}:${sec}`
     },
-    onDleteImage(image) {
+    onDeleteImage(image) {
       const storageRef = firebase.storage().ref()
-      const imageRef = storageRef.child(`images/${image.filename}`)
+      const imageRef = storageRef.child(`${image.name}`)
       imageRef.delete().then(() => {
         this.deleteImage({
           id: image.id
@@ -64,6 +70,6 @@ export default {
 <style>
 .image-card {
   text-align: -webkit-center;
-  padding: 0px 5px;
+  padding: 0px;
 }
 </style>
