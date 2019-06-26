@@ -28,6 +28,14 @@ exports.deleteUserData = functions.auth.user().onDelete(user => {
   return 0
 })
 
+exports.subscribeTopic = functions.firestore
+  .document('images')
+  .onUpdate((change, context) => {
+    console.log('onUpdate')
+    console.log(change)
+    console.log(context)
+  })
+
 exports.createImageData = functions.storage
   .object()
   .onFinalize(async object => {

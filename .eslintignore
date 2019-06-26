@@ -1,0 +1,12 @@
+static/*.js
+.grunt
+.lock-wscript
+node_modules/
+jspm_packages/
+.npm
+.eslintcache
+.node_repl_history
+.nuxt
+dist
+sw.*
+.firebase
