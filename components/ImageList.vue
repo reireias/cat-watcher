@@ -30,7 +30,7 @@
         </v-card>
       </v-flex>
     </v-layout>
-    <v-dialog v-model="dialog" max-width="50%">
+    <v-dialog v-model="dialog" :max-width="maxWidth">
       <v-card v-if="currentImage">
         <v-img :src="currentImage.url"></v-img>
       </v-card>
@@ -49,6 +49,14 @@ export default {
     }
   },
   computed: {
+    maxWidth() {
+      switch (this.$vuetify.breakpoint.name) {
+        case 'xs':
+          return '90%'
+        default:
+          return '50%'
+      }
+    },
     ...mapGetters(['images'])
   },
   created() {
