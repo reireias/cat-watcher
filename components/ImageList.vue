@@ -1,7 +1,14 @@
 <template>
   <v-container grid-list-md fluid>
-    <v-layout row wrap>
-      <v-flex v-for="image in images" :key="image.id" xs6 sm4 md3>
+    <transition-group name="images" tag="div" class="layout row wrap">
+      <v-flex
+        v-for="image in images"
+        :key="image.id"
+        xs6
+        sm4
+        md3
+        class="images-item"
+      >
         <v-card class="image-card" hover>
           <v-img
             class="image-card-image"
@@ -29,7 +36,7 @@
           </v-card-actions>
         </v-card>
       </v-flex>
-    </v-layout>
+    </transition-group>
     <v-dialog v-model="dialog" :max-width="maxWidth">
       <v-card v-if="currentImage">
         <v-img :src="currentImage.url"></v-img>
@@ -95,5 +102,15 @@ export default {
 .image-card {
   text-align: -webkit-center;
   padding: 0px;
+}
+.images-item {
+  transition: all 1s;
+  display: inline-block;
+}
+.images-enter, .images-leave-to /* .images-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+.images-leave-active {
+  position: absolute;
 }
 </style>
