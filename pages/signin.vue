@@ -4,7 +4,7 @@
       <div class="signin-title primary--text">ねこかん</div>
     </v-flex>
     <v-flex xs12>
-      <div class="signin-body-text">猫監視システム</div>
+      <div class="signin-body-text secondary--text">猫監視システム</div>
     </v-flex>
     <br />
     <v-flex xs12>

@@ -58,7 +58,7 @@ export default {
     theme: {
       primary: colors.pink.accent4,
       accent: colors.grey.darken3,
-      secondary: colors.amber.darken3,
+      secondary: colors.cyan.darken2,
       info: colors.teal.lighten1,
       warning: colors.amber.base,
       error: colors.deepOrange.accent4,

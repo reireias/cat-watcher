@@ -4,12 +4,22 @@
       ねこかん
     </v-toolbar-title>
     <v-spacer></v-spacer>
-    <v-btn icon @click="subscribe">
-      <v-icon>notifications_active</v-icon>
-    </v-btn>
-    <v-btn icon @click="signOut">
-      <v-icon>exit_to_app</v-icon>
-    </v-btn>
+    <v-tooltip bottom>
+      <template v-slot:activator="{ on }">
+        <v-btn icon flat color="secondary" @click="subscribe" v-on="on">
+          <v-icon>notifications_active</v-icon>
+        </v-btn>
+      </template>
+      <span>通知ON</span>
+    </v-tooltip>
+    <v-tooltip bottom>
+      <template v-slot:activator="{ on }">
+        <v-btn icon flat color="secondary" @click="signOut" v-on="on">
+          <v-icon>exit_to_app</v-icon>
+        </v-btn>
+      </template>
+      <span>サインアウト</span>
+    </v-tooltip>
   </v-toolbar>
 </template>
 
