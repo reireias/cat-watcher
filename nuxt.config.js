@@ -50,7 +50,8 @@ export default {
   manifest: {
     name: 'ねこかん',
     short_name: 'ねこかん',
-    lang: 'ja'
+    lang: 'ja',
+    display: 'standalone'
   },
   axios: {},
   vuetify: {
