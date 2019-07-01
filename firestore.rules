@@ -4,7 +4,7 @@ service cloud.firestore {
       allow read, write: if request.auth != null && userId == request.auth.uid;
     }
     match /images/{imageId} {
-      allow read, write: if request.auth != null;
+      allow read, write: if request.auth.uid == 'oZ41Z9Z6SVPxdY5zVK9k85tv1VK2' || request.auth.uid == 'QHXHNiqOQnQ2OeXfoMtk2k429hl2' || request.auth.uid == 'nvZyMFI0wtXFrETWLGEDX9t1iEO2';
     }
   }
 }
