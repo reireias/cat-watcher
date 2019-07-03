@@ -74,6 +74,11 @@ exports.createImageData = functions.storage
       `gs://${object.bucket}/${object.name}`
     )
     console.log(result.labelAnnotations)
+    if (result.labelAnnotations.length === 0) {
+      console.info('labeling failed.')
+      console.error(result)
+      return null
+    }
     const cat = result.labelAnnotations.filter(
       annotation => annotation.description === 'Cat'
     )
