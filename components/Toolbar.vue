@@ -24,8 +24,8 @@
 </template>
 
 <script>
-import firebase from '@/plugins/firebase'
 import { mapActions } from 'vuex'
+import firebase from '@/plugins/firebase'
 export default {
   methods: {
     async subscribe() {

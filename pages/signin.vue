@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import firebase from '@/plugins/firebase'
 import firebaseui from 'firebaseui'
+import firebase from '@/plugins/firebase'
 export default {
   layout: 'signin',
   mounted() {

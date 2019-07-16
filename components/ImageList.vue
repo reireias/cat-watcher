@@ -46,8 +46,8 @@
 </template>
 
 <script>
-import firebase from '@/plugins/firebase'
 import { mapGetters, mapActions } from 'vuex'
+import firebase from '@/plugins/firebase'
 export default {
   data() {
     return {
