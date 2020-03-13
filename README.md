@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/reireias/cat-watcher.svg?branch=master)](https://travis-ci.org/reireias/cat-watcher)
+![test](https://github.com/reireias/cat-watcher/workflows/test/badge.svg)
 # cat-watcher
 
 ## System Architecture
